@@ -12,9 +12,9 @@ class PopulateSubatomicParticlesJob < ApplicationJob
 
     particle_groups = if particle_group_id.present?
                         ParticleGroup.where(id: particle_group_id).to_a
-                      else
+    else
                         ParticleGroup.ordered.to_a
-                      end
+    end
 
     if particle_groups.empty?
       msg = particle_group_id.present? ? "Particle group with ID #{particle_group_id} not found." : "No particle groups found. Populate particle groups first before discovering subatomic particles."
