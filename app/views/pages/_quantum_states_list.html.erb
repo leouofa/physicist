@@ -1,0 +1,74 @@
+<div id="quantum_states_list">
+  <% if particle_groups.any? %>
+    <div class="mb-4 text-sm font-medium text-slate-500">
+      <%= pluralize(total_quantum_states_count, "quantum state / configuration") %> cataloged across <%= pluralize(particle_groups.size, "subatomic particle") %>
+    </div>
+
+    <div class="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
+      <table class="min-w-[44rem] w-full table-fixed divide-y divide-slate-200 text-left">
+        <thead class="bg-slate-50">
+          <tr>
+            <th scope="col" class="w-1/5 px-5 py-3.5 text-xs font-semibold uppercase tracking-wider text-slate-600">
+              Quantum State / Eigenstate
+            </th>
+            <th scope="col" class="w-1/2 px-5 py-3.5 text-xs font-semibold uppercase tracking-wider text-slate-600">
+              Description
+            </th>
+            <th scope="col" class="w-3/10 px-5 py-3.5 text-xs font-semibold uppercase tracking-wider text-slate-600">
+              Thematic Tags
+            </th>
+          </tr>
+        </thead>
+
+        <% particle_groups.each do |particle, states| %>
+          <tbody class="divide-y divide-slate-200">
+            <tr class="bg-slate-100/80 border-y border-slate-200">
+              <th colspan="3" scope="colgroup" class="px-5 py-3 text-left">
+                <div class="flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-2">
+                    <span class="text-sm font-semibold text-slate-900"><%= particle.name %></span>
+                    <span class="inline-flex items-center rounded-full bg-slate-200/80 px-2 py-0.5 text-[11px] font-medium text-slate-700">
+                      <%= particle.particle_group&.name %>
+                    </span>
+                  </div>
+                  <span class="text-xs font-medium text-slate-500"><%= pluralize(states.size, "quantum state") %></span>
+                </div>
+              </th>
+            </tr>
+
+            <% states.each do |state| %>
+              <tr class="align-top transition hover:bg-slate-50/70">
+                <td class="px-5 py-4 text-sm font-semibold text-slate-900">
+                  <%= link_to state.name, quantum_state_path(state), class: "text-indigo-600 hover:text-indigo-500 hover:underline" %>
+                </td>
+                <td class="px-5 py-4 text-sm leading-relaxed text-slate-600">
+                  <%= state.description %>
+                </td>
+                <td class="px-5 py-4">
+                  <% if state.themes.any? %>
+                    <ul class="flex flex-wrap gap-1.5" aria-label="Themes for <%= state.name %>">
+                      <% state.themes.each do |theme| %>
+                        <li class="inline-flex items-center rounded-full border border-indigo-200 bg-indigo-50 px-2.5 py-0.5 text-xs font-medium text-indigo-700">
+                          <%= theme %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  <% else %>
+                    <span class="text-xs text-slate-400">None</span>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        <% end %>
+      </table>
+    </div>
+  <% else %>
+    <div class="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-10 text-center">
+      <h2 class="text-base font-semibold text-slate-900">No quantum states yet</h2>
+      <p class="mt-1 text-sm text-slate-600">
+        Click <span class="font-medium text-slate-800">Discover Quantum States</span> above to have the agent discover and catalog quantum states and configurations.
+      </p>
+    </div>
+  <% end %>
+</div>

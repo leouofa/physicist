@@ -1,0 +1,29 @@
+<% content_for :title, "Subatomic Particles | Physicist" %>
+
+<%= turbo_stream_from PopulateSubatomicParticlesJob::GLOBAL_STREAM_NAME %>
+
+<div class="w-full max-w-5xl mx-auto space-y-8 pb-16">
+  <header class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between border-b border-slate-200 pb-6">
+    <div>
+      <h1 class="text-3xl font-bold tracking-tight text-slate-900">Subatomic Particles</h1>
+      <p class="mt-2 text-sm text-slate-600">
+        <%= @total_subatomic_particles_count %> subatomic particles cataloged across <%= @particle_groups_count %> particle groups.
+      </p>
+    </div>
+
+    <div class="shrink-0">
+      <%= render "pages/populate_controls",
+                 running: false,
+                 action_path: populate_subatomic_particles_path,
+                 button_label: "Discover Subatomic Particles",
+                 controls_target: "populate_all_subatomic_particles_controls",
+                 status_message: notice,
+                 status_kind: (notice.present? ? :info : nil) %>
+    </div>
+  </header>
+
+  <%= render "pages/subatomic_particles_list",
+             particle_group_groups: @particle_group_groups,
+             total_subatomic_particles_count: @total_subatomic_particles_count,
+             particle_groups_count: @particle_groups_count %>
+</div>

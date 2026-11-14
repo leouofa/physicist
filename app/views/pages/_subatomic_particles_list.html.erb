@@ -1,0 +1,69 @@
+<div id="subatomic_particles_list">
+  <% if particle_group_groups.any? %>
+    <div class="mb-4 text-sm font-medium text-slate-500">
+      <%= pluralize(total_subatomic_particles_count, "subatomic particle") %> cataloged across <%= pluralize(particle_group_groups.size, "particle group") %>
+    </div>
+
+    <div class="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
+      <table class="min-w-[44rem] w-full table-fixed divide-y divide-slate-200 text-left">
+        <thead class="bg-slate-50">
+          <tr>
+            <th scope="col" class="w-1/6 px-5 py-3.5 text-xs font-semibold uppercase tracking-wider text-slate-600">
+              Subatomic Particle
+            </th>
+            <th scope="col" class="w-5/12 px-5 py-3.5 text-xs font-semibold uppercase tracking-wider text-slate-600">
+              Description
+            </th>
+            <th scope="col" class="w-5/12 px-5 py-3.5 text-xs font-semibold uppercase tracking-wider text-slate-600">
+              Thematic Tags
+            </th>
+          </tr>
+        </thead>
+
+        <% particle_group_groups.each do |group, particles| %>
+          <tbody class="divide-y divide-slate-200">
+            <tr class="bg-slate-100/80 border-y border-slate-200">
+              <th colspan="3" scope="colgroup" class="px-5 py-3 text-left">
+                <div class="flex items-center justify-between gap-3">
+                  <span class="text-sm font-semibold text-slate-900"><%= group.name %></span>
+                  <span class="text-xs font-medium text-slate-500"><%= pluralize(particles.size, "subatomic particle") %></span>
+                </div>
+              </th>
+            </tr>
+
+            <% particles.each do |particle| %>
+              <tr class="align-top transition hover:bg-slate-50/70">
+                <td class="px-5 py-4 text-sm font-semibold text-slate-900">
+                  <%= link_to particle.name, subatomic_particle_path(particle), class: "text-indigo-600 hover:text-indigo-500 hover:underline" %>
+                </td>
+                <td class="px-5 py-4 text-sm leading-relaxed text-slate-600">
+                  <%= particle.description %>
+                </td>
+                <td class="px-5 py-4">
+                  <% if particle.themes.any? %>
+                    <ul class="flex flex-wrap gap-1.5" aria-label="Themes for <%= particle.name %>">
+                      <% particle.themes.each do |theme| %>
+                        <li class="inline-flex items-center rounded-full border border-indigo-200 bg-indigo-50 px-2.5 py-0.5 text-xs font-medium text-indigo-700">
+                          <%= theme %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  <% else %>
+                    <span class="text-xs text-slate-400">None</span>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        <% end %>
+      </table>
+    </div>
+  <% else %>
+    <div class="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-10 text-center">
+      <h2 class="text-base font-semibold text-slate-900">No subatomic particles yet</h2>
+      <p class="mt-1 text-sm text-slate-600">
+        Click <span class="font-medium text-slate-800">Discover Subatomic Particles</span> above to have the agent discover and catalog subatomic particles for each particle group.
+      </p>
+    </div>
+  <% end %>
+</div>

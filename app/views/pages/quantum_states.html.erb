@@ -1,0 +1,29 @@
+<% content_for :title, "Quantum States | Physicist" %>
+
+<%= turbo_stream_from PopulateQuantumStatesJob::GLOBAL_STREAM_NAME %>
+
+<div class="w-full max-w-5xl mx-auto space-y-8 pb-16">
+  <header class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between border-b border-slate-200 pb-6">
+    <div>
+      <h1 class="text-3xl font-bold tracking-tight text-slate-900">Quantum States</h1>
+      <p class="mt-2 text-sm text-slate-600">
+        <%= @total_quantum_states_count %> quantum states cataloged across <%= @subatomic_particles_count %> subatomic particles.
+      </p>
+    </div>
+
+    <div class="shrink-0">
+      <%= render "pages/populate_controls",
+                 running: false,
+                 action_path: populate_quantum_states_path,
+                 button_label: "Discover Quantum States",
+                 controls_target: "populate_all_quantum_states_controls",
+                 status_message: notice,
+                 status_kind: (notice.present? ? :info : nil) %>
+    </div>
+  </header>
+
+  <%= render "pages/quantum_states_list",
+             particle_groups: @subatomic_particle_groups,
+             total_quantum_states_count: @total_quantum_states_count,
+             subatomic_particles_count: @subatomic_particles_count %>
+</div>
