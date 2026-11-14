@@ -8,7 +8,7 @@ class ClusterReportsControllerTest < ActionDispatch::IntegrationTest
       target_type: "SubatomicParticle",
       level: 5,
       distance_threshold: 0.20,
-      title: "Solar Snapshot",
+      title: "Electroweak Snapshot",
       clusters_count: 1,
       items_count: 2
     )
@@ -28,7 +28,7 @@ class ClusterReportsControllerTest < ActionDispatch::IntegrationTest
   test "should filter index by target_type" do
     get cluster_reports_url(target_type: "SubatomicParticle")
     assert_response :success
-    assert_includes response.body, "Solar Snapshot"
+    assert_includes response.body, "Electroweak Snapshot"
   end
 
   test "should show report" do
@@ -88,7 +88,7 @@ class ClusterReportsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "deep synthesis copies existing cluster summaries to the new detailed report" do
-    group = @snapshot.cluster_groups.create!(name: "Solar Realm", shared_themes: [ "sun" ], size: 1)
+    group = @snapshot.cluster_groups.create!(name: "Electroweak Sector", shared_themes: [ "gauge" ], size: 1)
     @report.cluster_report_summaries.create!(cluster_group: group, position: 1, content: "Copied analysis")
 
     post deep_synthesis_cluster_report_url(@report), params: { batch_size: 5 }
@@ -114,7 +114,7 @@ class ClusterReportsControllerTest < ActionDispatch::IntegrationTest
 
   test "should render a detailed report with batch analyses, source banner, and without generation form" do
     parent = @report
-    group = @snapshot.cluster_groups.create!(name: "Solar Realm", shared_themes: [ "sun" ], size: 1)
+    group = @snapshot.cluster_groups.create!(name: "Electroweak Sector", shared_themes: [ "gauge" ], size: 1)
     detailed_report = @snapshot.cluster_reports.create!(
       prompt: parent.prompt,
       status: "completed",

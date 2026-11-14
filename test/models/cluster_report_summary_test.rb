@@ -12,7 +12,7 @@ class ClusterReportSummaryTest < ActiveSupport::TestCase
       clusters_count: 1,
       items_count: 2
     )
-    @group = @snapshot.cluster_groups.create!(name: "Gauge Symmetry Realm", shared_themes: [ "gauge" ], size: 2)
+    @group = @snapshot.cluster_groups.create!(name: "Gauge Symmetry Sector", shared_themes: [ "gauge" ], size: 2)
     @report = @snapshot.cluster_reports.create!(prompt: "Find patterns across subatomic particles or quantum states")
   end
 
@@ -22,7 +22,7 @@ class ClusterReportSummaryTest < ActiveSupport::TestCase
 
     summary.cluster_report = @report
     summary.cluster_group = @group
-    summary.content = "Analysis of the solar domain."
+    summary.content = "Analysis of the electroweak gauge sector."
     summary.position = 1
     assert summary.valid?
     summary.save!
