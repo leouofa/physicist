@@ -12,9 +12,9 @@ class PopulateQuantumStatesJob < ApplicationJob
 
     subatomic_particles = if subatomic_particle_id.present?
                             SubatomicParticle.where(id: subatomic_particle_id).includes(:particle_group).to_a
-                          else
+    else
                             SubatomicParticle.includes(:particle_group).joins(:particle_group).order("particle_groups.name ASC, subatomic_particles.name ASC").to_a
-                          end
+    end
 
     if subatomic_particles.empty?
       msg = subatomic_particle_id.present? ? "Subatomic particle with ID #{subatomic_particle_id} not found." : "No subatomic particles found. Populate subatomic particles first before discovering quantum states."
