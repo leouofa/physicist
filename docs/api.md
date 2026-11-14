@@ -1,6 +1,6 @@
 # Physicist REST API (`/api/v1`) Specification & Developer Reference
 
-This document provides a comprehensive technical reference for the programmatic REST API exposed by **Physicist** under `/api/v1`. The API is designed for external applications, researchers, and companion client environments (such as companion MCP servers or Python computational physics scripts) to query, manipulate, and orchestrate the entire particle physics catalog, vector embedding manifold, archetype clustering engine, and multi-stage LLM synthesis pipelines.
+This document provides a comprehensive technical reference for the programmatic REST API exposed by **Physicist** under `/api/v1`. The API is designed for external applications, researchers, and companion client environments (such as the official [physicist-mcp](https://github.com/leouofa/physicist-mcp) server or Python computational physics scripts) to query, manipulate, and orchestrate the entire particle physics catalog, vector embedding manifold, archetype clustering engine, and multi-stage LLM synthesis pipelines.
 
 ---
 

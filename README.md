@@ -13,9 +13,12 @@
 [![Sidekiq](https://img.shields.io/badge/Sidekiq-Background_Jobs-B91C1C.svg?logo=sidekiq&logoColor=white)](https://sidekiq.org)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
 [![Hotwire](https://img.shields.io/badge/Hotwire-Turbo%20%26%20Stimulus-F3B01C.svg)](https://hotwired.dev)
+[![MCP Server](https://img.shields.io/badge/MCP_Server-physicist--mcp-6366f1.svg?logo=github&logoColor=white)](https://github.com/leouofa/physicist-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 **Physicist** is an open-source computational research platform and quantitative analytical laboratory designed for **theoretical physicists**, **high-energy phenomenologists**, **quantum information scientists**, and **condensed matter researchers**. It enables physicists to systematically map, cluster, and synthesize physical archetypes, gauge invariants, spin-statistics, and symmetry manifolds across particle groups, subatomic particles, and quantum states using **1024-dimensional semantic vector embeddings (`pgvector`)**, **graph-theoretic connected components**, and **multi-stage AI synthesis pipelines**.
+
+Pair it with the official **[Physicist MCP Server](https://github.com/leouofa/physicist-mcp)** to connect AI agents (Claude Desktop, Claude Code, Cursor, Gemini CLI, Antigravity) directly to your computational laboratory.
 
 ---
 
@@ -124,6 +127,47 @@ Physicist provides a full-featured REST API under `/api/v1` returning JSON respo
 - `GET /api/v1/clusters?target_type=SubatomicParticle&level=5`: Interactive agglomerative clustering
 - `POST /api/v1/clusters/snapshot`: Freeze an empirical cluster snapshot
 - `POST /api/v1/cluster_reports`: Synthesize an AI-grounded Map-Reduce or Deep Synthesis report
+
+---
+
+## Official Model Context Protocol (MCP) Server
+
+Connect AI coding agents, IDEs, and assistant workflows (such as Claude Desktop, Claude Code, Cursor, Gemini CLI, and Antigravity) directly to Physicist via the official companion MCP server:
+
+👉 **[Physicist MCP Server (`physicist-mcp`)](https://github.com/leouofa/physicist-mcp)**
+
+```mermaid
+flowchart LR
+    Agents["AI Agents\n(Claude / Cursor / Antigravity)"] <-->|MCP stdio| MCP["physicist-mcp"]
+    MCP <-->|REST API /api/v1| Physicist["Physicist Lab\n(Rails 8.1 Engine)"]
+    Physicist <--> DB["PostgreSQL 16\n(pgvector HNSW)"]
+    Physicist <--> LLM["Local Ollama\n(Inference & Embeddings)"]
+```
+
+The MCP server provides:
+- **51 Registered Tools**: Cross-catalog hybrid semantic search, nearest particle counterpart discovery, full CRUD and discovery triggers for particle groups, subatomic particles, and quantum states, 15-level agglomerative clustering, cluster snapshot freezing, and multi-stage Map-Reduce / Deep Synthesis report generation.
+- **4 Registered Resources**: Read-only access to live platform status (`physicist://status`), particle group catalogs (`physicist://particle-groups`), cluster snapshots (`physicist://snapshots/{id}`), and generated academic monographs (`physicist://reports/{id}`).
+- **2 Prompt Templates**: Guided workflows for comparative particle physics analysis (`comparative_particle_analysis`) and quantum cluster synthesis monographs (`quantum_cluster_monograph`).
+
+### Quick Setup
+
+Add to your MCP client configuration (e.g., `claude_desktop_config.json`, Cursor, or Antigravity MCP settings):
+
+```json
+{
+  "mcpServers": {
+    "physicist": {
+      "command": "node",
+      "args": ["/path/to/physicist-mcp/dist/index.js"],
+      "env": {
+        "PHYSICIST_API_URL": "http://localhost:3000/api/v1"
+      }
+    }
+  }
+}
+```
+
+For installation and local development instructions, see the **[physicist-mcp repository](https://github.com/leouofa/physicist-mcp)**.
 
 ---
 
